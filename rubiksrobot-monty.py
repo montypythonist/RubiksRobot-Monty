@@ -7,6 +7,7 @@ from collections import Counter
 from pathlib import Path
 
 # Base directory where the script is located
+# TODO test directory fix on Pi's
 BASE_DIR = Path(__file__).parent.resolve()
 FACES_DIR = BASE_DIR / "faces"
 JSON_PATH = BASE_DIR / "storing.json"
@@ -46,6 +47,7 @@ clickimage(FACES_DIR / "right.jpg")
 clickimage(FACES_DIR / "up.jpg")
 
 # BGR thresholds
+# TODO fix incorrectly detected colors on Pi
 whitemin = (100, 100, 100)
 whitemax = (255, 255, 255)
 redmin = (30, 30, 110)
