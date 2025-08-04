@@ -11,6 +11,40 @@ BASE_DIR = Path(__file__).parent.resolve()
 FACES_DIR = BASE_DIR / "faces"
 JSON_PATH = BASE_DIR / "storing.json"
 
+def crop(image_path):
+    image_path = str(image_path)  # Ensure it's a string for OpenCV
+    image = cv2.imread(image_path)
+
+    if image is None:
+        print(f"Failed to read image: {image_path}")
+        return
+
+    height, width, _ = image.shape
+    square_size = min(width, height) // 5
+    offset_x = (width - 3 * square_size) // 2
+    offset_y = (height - 3 * square_size) // 2
+
+    # Draw grid on the image
+    for i in range(3):
+        for j in range(3):
+            x1, y1 = offset_x + j * square_size, offset_y + i * square_size
+            x2, y2 = x1 + square_size, y1 + square_size
+            cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
+
+    # Crop the image to include only the Rubik's Cube
+    cropped_image = image[offset_y:offset_y + 3 * square_size, offset_x:offset_x + 3 * square_size]
+
+    # Overwrite the original image file with the cropped version
+    cv2.imwrite(image_path, cropped_image)
+
+
+crop(FACES_DIR / "back.jpg")
+crop(FACES_DIR / "down.jpg")
+crop(FACES_DIR / "front.jpg")
+crop(FACES_DIR / "left.jpg")
+crop(FACES_DIR / "right.jpg")
+crop(FACES_DIR / "up.jpg")
+
 # BGR thresholds
 # TODO fix incorrectly detected colors on Pi
 whitemin = (100, 100, 100)
