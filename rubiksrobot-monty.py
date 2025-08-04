@@ -12,40 +12,6 @@ BASE_DIR = Path(__file__).parent.resolve()
 FACES_DIR = BASE_DIR / "faces"
 JSON_PATH = BASE_DIR / "storing.json"
 
-def clickimage(image_path):  # will take a picture and make grid to scan each color
-    image_path = str(image_path)
-    cap = cv2.VideoCapture(0)
-    sleep(2)
-    ret, frame = cap.read()
-    cap.release()
-    if ret:
-        height, width, _ = frame.shape
-        square_size = min(width, height) // 5
-        offset_x = (width - 3 * square_size) // 2
-        offset_y = (height - 3 * square_size) // 2
-
-        # Draw grid on the image
-        for i in range(3):
-            for j in range(3):
-                x1, y1 = offset_x + j * square_size, offset_y + i * square_size
-                x2, y2 = x1 + square_size, y1 + square_size
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-
-        # Crop the image to include only the Rubik's Cube
-        cropped_image = frame[offset_y:offset_y + 3 * square_size, offset_x:offset_x + 3 * square_size]
-
-        # Save the cropped image
-        cv2.imwrite(image_path, cropped_image)
-    else:
-        print("Failed to capture image.")
-
-clickimage(FACES_DIR / "back.jpg")
-clickimage(FACES_DIR / "down.jpg")
-clickimage(FACES_DIR / "front.jpg")
-clickimage(FACES_DIR / "left.jpg")
-clickimage(FACES_DIR / "right.jpg")
-clickimage(FACES_DIR / "up.jpg")
-
 # BGR thresholds
 # TODO fix incorrectly detected colors on Pi
 whitemin = (100, 100, 100)
