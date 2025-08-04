@@ -1,5 +1,4 @@
 import cv2
-from time import sleep
 from numpy import float32
 from json import load, dump
 import kociemba
