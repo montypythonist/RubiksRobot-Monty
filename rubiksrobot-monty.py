@@ -6,7 +6,6 @@ from collections import Counter
 from pathlib import Path
 
 # Base directory where the script is located
-# TODO test directory fix on Pi's
 BASE_DIR = Path(__file__).parent.resolve()
 FACES_DIR = BASE_DIR / "faces"
 JSON_PATH = BASE_DIR / "storing.json"
@@ -47,18 +46,19 @@ crop(FACES_DIR / "up.jpg")
 
 # BGR thresholds
 # TODO fix incorrectly detected colors on Pi
-whitemin = (100, 100, 100)
+whitemin = (200, 200, 200)
 whitemax = (255, 255, 255)
-redmin = (30, 30, 110)
-redmax = (60, 60, 200)
-orangemin = (10, 40, 100)
-orangemax = (70, 100, 220)
-yellowmin = (40, 100, 120)
-yellowmax = (80, 170, 210)
-greenmin = (30, 90, 50)
-greenmax = (80, 190, 160)
-bluemin = (80, 40, 20)
-bluemax = (170, 100, 110)
+redmin = (0, 20, 120)
+redmax = (70, 120, 255)
+orangemin = (0, 80, 160)
+orangemax = (90, 160, 255)
+yellowmin = (0, 120, 160)
+yellowmax = (120, 210, 255)
+greenmin = (20, 100, 20)
+greenmax = (120, 255, 140)
+bluemin = (100, 40, 20)
+bluemax = (255, 140, 120)
+
 
 def color_checker(BGR_tuple):
     if all(whitemin[i] <= BGR_tuple[i] <= whitemax[i] for i in range(3)):
